@@ -4,7 +4,9 @@ import {
     setActiveUser,
     setToken,
     register,
-    getActiveUser
+    getActiveUser,
+    login,
+    logout
 } from "./slice";
 
 function* registerHandler(action) {
@@ -12,6 +14,17 @@ function* registerHandler(action) {
         const data = yield call([authService, authService.register], action.payload);
 
         yield put(setActiveUser(data.user));
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function* loginHandler(action) {
+    try {
+        const data = yield call(authService.login, action.payload);
+
+        yield put(setActiveUser(data.user));
+        yield put(setToken(data.token));
     } catch (e) {
         console.error(e);
     }
@@ -27,7 +40,20 @@ function* getActiveUserHendler() {
     }
 }
 
+function* logoutHandler() {
+    try {
+        yield call([authService, authService.logout]);
+
+        yield put(setActiveUser(null));
+        yield put(setToken(null));
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export function* watchForUserSagas() {
     yield takeLatest(register.type, registerHandler);
+    yield takeLatest(login.type, loginHandler);
     yield takeLatest(getActiveUser.type, getActiveUserHendler);
+    yield takeLatest(logout.type, logoutHandler);
 }
