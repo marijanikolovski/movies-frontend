@@ -5,6 +5,7 @@ import { AppLogin } from "./pages/AppLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "./store/user/selector";
 import { getActiveUser } from "./store/user/slice";
+import { AddMovie } from "./pages/AddMovie";
 
 function GuestRoute({ children, ...props }) {
     const isGuest = !useSelector(selectToken);
@@ -40,6 +41,9 @@ export const Router = () => {
             <GuestRoute path="/login">
                 <AppLogin />
             </GuestRoute>
+            <PrivateRoute path='/create'>
+                <AddMovie />
+            </PrivateRoute>
         </Switch>
     );
 };
