@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { AppRegister } from "./pages/AppRegister";
+import { AppLogin } from "./pages/AppLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "./store/user/selector";
 import { getActiveUser } from "./store/user/slice";
@@ -35,6 +36,9 @@ export const Router = () => {
         <Switch>
             <GuestRoute path="/register">
                 <AppRegister />
+            </GuestRoute>
+            <GuestRoute path="/login">
+                <AppLogin />
             </GuestRoute>
         </Switch>
     );

@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const middlewareActions = {
     register: () => { },
+    login: () => { },
     getActiveUser: () => { },
+    logout: () => { },
 };
 
 export const usersSlice = createSlice({
@@ -29,6 +31,8 @@ export const {
     setActiveUser,
     setToken,
     getActiveUser,
+    login,
+    logout
 } = usersSlice.actions;
 
 export default usersSlice.reducer;
