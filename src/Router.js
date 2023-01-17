@@ -7,6 +7,7 @@ import { selectToken } from "./store/user/selector";
 import { getActiveUser } from "./store/user/slice";
 import { AddMovie } from "./pages/AddMovie";
 import { AppMovies } from "./pages/AppMovies";
+import { SingleMovie } from "./pages/SingleMovie";
 
 function GuestRoute({ children, ...props }) {
     const isGuest = !useSelector(selectToken);
@@ -44,6 +45,9 @@ export const Router = () => {
             </GuestRoute>
             <PrivateRoute exact path='/movies'>
                 <AppMovies />
+            </PrivateRoute>
+            <PrivateRoute  path='/movies/:id'>
+                <SingleMovie />
             </PrivateRoute>
             <PrivateRoute path='/create'>
                 <AddMovie />
