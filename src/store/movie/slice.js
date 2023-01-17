@@ -1,14 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const middlewareActions = {
-    addMovie: () => {},
-    getMovies: () => {},
+  addMovie: () => { },
+  getMovies: () => { },
 };
 
 export const MoviesSlice = createSlice({
   name: "movies",
   initialState: {
-    movies: [],
+    page: {
+      data: [],
+      current_page: 0,
+      last_page: 0,
+    },
     newMovie: {
       title: "",
       description: "",
@@ -17,7 +21,12 @@ export const MoviesSlice = createSlice({
   },
   reducers: {
     setMovies(state, action) {
-      state.movies = action.payload;
+      state.page = action.payload;
+    },
+
+    setPaginated(state, action) {
+      state.page.data = [...state.page.data, ...action.payload.data];
+      state.page.current_page = action.payload.current_page;
     },
 
     setNewMovie(state, action) {
@@ -33,11 +42,12 @@ export const MoviesSlice = createSlice({
 });
 
 export const {
-    setNewMovie,
-    setResetForm,
-    addMovie,
-    getMovies,
-    setMovies,
+  setNewMovie,
+  setResetForm,
+  addMovie,
+  getMovies,
+  setMovies,
+  setPaginated,
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

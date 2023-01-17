@@ -1,4 +1,4 @@
-const selectMovies = (state) => state.movies.movies;
+const selectMovies = (state) => state.movies.page;
 
 const selectNewMovie = (state) => state.movies.newMovie;
 
