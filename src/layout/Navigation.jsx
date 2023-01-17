@@ -30,6 +30,12 @@ export const Navigation = () => {
                                 >
                                     Create New Movie
                                 </Link>
+                                <Link
+                                    className="navbar-brand navbar-item mt-3 mb-3 ml-2"
+                                    to="/movies"
+                                >
+                                    Movies
+                                </Link>
                                 <Button type="submit" onClick={handleLogout}>
                                     Logout
                                 </Button>
