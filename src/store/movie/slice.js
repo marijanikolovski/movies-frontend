@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const middlewareActions = {
     addMovie: () => {},
+    getMovies: () => {},
 };
 
 export const MoviesSlice = createSlice({
   name: "movies",
   initialState: {
+    movies: [],
     newMovie: {
       title: "",
       description: "",
@@ -14,6 +16,10 @@ export const MoviesSlice = createSlice({
     },
   },
   reducers: {
+    setMovies(state, action) {
+      state.movies = action.payload;
+    },
+
     setNewMovie(state, action) {
       state.newMovie = action.payload;
     },
@@ -29,7 +35,9 @@ export const MoviesSlice = createSlice({
 export const {
     setNewMovie,
     setResetForm,
-    addMovie
+    addMovie,
+    getMovies,
+    setMovies,
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

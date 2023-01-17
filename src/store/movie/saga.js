@@ -1,8 +1,19 @@
 import { put, call, takeLatest, take } from "redux-saga/effects";
 import { movieService } from "../../services/MovieService";
 import {
-    addMovie
+    addMovie,
+    getMovies,
+    setMovies
 } from "./slice";
+ 
+function* getMoviesHandler() {
+  try {
+    const movies = yield call(movieService.getAll);
+      yield put(setMovies(movies));
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 function* addMovieHandler(action) {
   try {
@@ -13,5 +24,6 @@ function* addMovieHandler(action) {
 }
 
 export function* watchForMoviesSagas() {
+  yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
 }

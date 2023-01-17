@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "./store/user/selector";
 import { getActiveUser } from "./store/user/slice";
 import { AddMovie } from "./pages/AddMovie";
+import { AppMovies } from "./pages/AppMovies";
 
 function GuestRoute({ children, ...props }) {
     const isGuest = !useSelector(selectToken);
@@ -41,9 +42,15 @@ export const Router = () => {
             <GuestRoute path="/login">
                 <AppLogin />
             </GuestRoute>
+            <PrivateRoute exact path='/movies'>
+                <AppMovies />
+            </PrivateRoute>
             <PrivateRoute path='/create'>
                 <AddMovie />
             </PrivateRoute>
+            <Route exact path="/">
+                <Redirect to="/movies" />
+            </Route>
         </Switch>
     );
 };
