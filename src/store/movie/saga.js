@@ -4,7 +4,9 @@ import {
   addMovie,
   getMovies,
   setMovies,
-  setPaginated
+  setPaginated,
+  setMovie,
+  getMovie
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -15,6 +17,15 @@ function* getMoviesHandler(action) {
     } else {
       yield put(setMovies(movies));
     }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* getMovieHandler(action) {
+  try {
+    const movie = yield call(movieService.get, action.payload);
+    yield put(setMovie(movie));
   } catch (e) {
     console.log(e);
   }
@@ -31,4 +42,5 @@ function* addMovieHandler(action) {
 export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
+  yield takeLatest(getMovie.type, getMovieHandler)
 }

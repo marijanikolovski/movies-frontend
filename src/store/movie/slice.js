@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const middlewareActions = {
   addMovie: () => { },
   getMovies: () => { },
+  getMovie: () => { },
 };
 
 export const MoviesSlice = createSlice({
@@ -18,10 +19,15 @@ export const MoviesSlice = createSlice({
       description: "",
       cover_image: "",
     },
+    movie: {},
   },
   reducers: {
     setMovies(state, action) {
       state.page = action.payload;
+    },
+
+    setMovie(state, action) {
+      state.movie = action.payload;
     },
 
     setPaginated(state, action) {
@@ -48,6 +54,8 @@ export const {
   getMovies,
   setMovies,
   setPaginated,
+  setMovie,
+  getMovie
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;
