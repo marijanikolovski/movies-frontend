@@ -63,7 +63,6 @@ export const {
   addMovie,
   getMovies,
   setMovies,
-  setPaginated,
   setMovie,
   getMovie
 } = MoviesSlice.actions;
