@@ -4,7 +4,7 @@ import {
   addMovie,
   getMovies,
   setMovies,
-  setPaginated,
+  setMoviesWihtPaginated,
   setMovie,
   getMovie
 } from "./slice";
@@ -13,7 +13,7 @@ function* getMoviesHandler(action) {
   try {
     const movies = yield call(movieService.getAll, action.payload.page);
     if (action.payload?.page > 1) {
-      yield put(setPaginated(movies));
+      yield put(setMoviesWihtPaginated(movies));
     } else {
       yield put(setMovies(movies));
     }

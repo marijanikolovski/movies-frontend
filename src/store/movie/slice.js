@@ -9,7 +9,7 @@ const middlewareActions = {
 export const MoviesSlice = createSlice({
   name: "movies",
   initialState: {
-    page: {
+    movies: {
       data: [],
       current_page: 0,
       last_page: 0,
@@ -23,15 +23,15 @@ export const MoviesSlice = createSlice({
   },
   reducers: {
     setMovies(state, action) {
-      state.page = action.payload;
+      state.movies = action.payload;
     },
 
     setMovie(state, action) {
       state.movie = action.payload;
     },
 
-    setPaginated(state, action) {
-      state.page.data = [...state.page.data, ...action.payload.data];
+    setMoviesWihtPaginated(state, action) {
+      state.movies.data = [...state.page.data, ...action.payload.data];
       state.page.current_page = action.payload.current_page;
     },
 
@@ -53,7 +53,7 @@ export const {
   addMovie,
   getMovies,
   setMovies,
-  setPaginated,
+  setMoviesWihtPaginated,
   setMovie,
   getMovie
 } = MoviesSlice.actions;
