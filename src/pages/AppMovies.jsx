@@ -29,11 +29,11 @@ export const AppMovies = () => {
                             />
                         ))}
                     </ul>
-                    {movies.current_page !== movies.last_page && (
+                    {movies.current_page !== movies.last_page ? (
                         <Button onClick={() => handlePaginate(movies.current_page + 1)}>
                             Load More
                         </Button>
-                    )}
+                    ) : (<p>No more movies</p>)} 
                 </div>
             ) : (
                 <div>No movies created.</div>

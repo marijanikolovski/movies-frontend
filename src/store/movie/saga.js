@@ -12,11 +12,7 @@ import {
 function* getMoviesHandler(action) {
   try {
     const movies = yield call(movieService.getAll, action.payload.page);
-    if (action.payload?.page > 1) {
-      yield put(setPaginated(movies));
-    } else {
       yield put(setMovies(movies));
-    }
   } catch (e) {
     console.log(e);
   }
