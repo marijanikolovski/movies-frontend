@@ -20,6 +20,7 @@ export const MoviesSlice = createSlice({
       cover_image: "",
     },
     movie: {},
+    term: null,
   },
   reducers: {
     setMovies(state, action) {
@@ -31,8 +32,8 @@ export const MoviesSlice = createSlice({
     },
 
     setMoviesWihtPaginated(state, action) {
-      state.movies.data = [...state.page.data, ...action.payload.data];
-      state.page.current_page = action.payload.current_page;
+      state.movies.data = [...state.movies.data, ...action.payload.data];
+      state.movies.current_page = action.payload.current_page;
     },
 
     setNewMovie(state, action) {
@@ -41,6 +42,10 @@ export const MoviesSlice = createSlice({
 
     setResetForm(state) {
       state.newMovie = {};
+    },
+
+    setSearchTerm(state, action) {
+      state.term = action.payload;
     },
 
     ...middlewareActions,
@@ -55,7 +60,8 @@ export const {
   setMovies,
   setMoviesWihtPaginated,
   setMovie,
-  getMovie
+  getMovie,
+  setSearchTerm
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

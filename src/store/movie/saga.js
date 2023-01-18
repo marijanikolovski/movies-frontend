@@ -11,7 +11,7 @@ import {
 
 function* getMoviesHandler(action) {
   try {
-    const movies = yield call(movieService.getAll, action.payload.page);
+    const movies = yield call(movieService.getAll, action.payload.page, action.payload.term);
     if (action.payload?.page > 1) {
       yield put(setMoviesWihtPaginated(movies));
     } else {
