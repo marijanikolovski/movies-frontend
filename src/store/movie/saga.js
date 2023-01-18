@@ -4,7 +4,6 @@ import {
   addMovie,
   getMovies,
   setMovies,
-  setPaginated,
   setMovie,
   getMovie
 } from "./slice";
