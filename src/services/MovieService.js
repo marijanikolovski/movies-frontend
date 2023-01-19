@@ -1,9 +1,12 @@
 import HttpService from "./HttpService";
 
 class MovieService extends HttpService {
-    getAll = async (page = 0) => {
+    getAll = async (page = 0, term= "") => {
         let endpoint = `/movies/?page=${page}`;
 
+        if(term) {
+            endpoint += `&term=${term}`;
+        }
         const { data } = await this.client.get(endpoint);
         return data;
     };
