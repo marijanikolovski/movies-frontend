@@ -6,14 +6,19 @@ import { getMovies, setSearchTerm } from '../store/movie/slice'
 import { selectMovies, selectSearchTerm } from '../store/movie/selector'
 import { MovieRow } from '../component/MovieRow'
 import { MovieSearchComponent } from '../component/MovieSearchComponent';
+import { MovieFilterComponent } from '../component/MovieFilterComponent';
+import { selectGenres } from "../store/genre/selector";
+import { getGenres } from '../store/genre/slice';
 
 export const AppMovies = () => {
     const dispatch = useDispatch();
     const movies = useSelector(selectMovies);
     const term = useSelector(selectSearchTerm);
+    const genres = useSelector(selectGenres);
 
     useEffect(() => {
         dispatch(getMovies({ page: 1, term: null }));
+        dispatch(getGenres())
     }, []);
 
     function handlePaginate(page) {
@@ -45,6 +50,11 @@ export const AppMovies = () => {
                         handleSearchTerm={handleSearchTerm}
                         handleSearch={handleSearch}
                         debouncedHandleChange={debouncedHandleChange}
+                    />
+                    <MovieFilterComponent
+                        handleSearch={handleSearch}
+                        handleSearchTerm={handleSearchTerm}
+                        genres={genres}
                     />
                     <ul>
                         {movies.data.map((movie) => (
