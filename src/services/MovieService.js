@@ -1,10 +1,10 @@
 import HttpService from "./HttpService";
 
 class MovieService extends HttpService {
-    getAll = async (page = 0, term= "") => {
+    getAll = async (page = 0, term = "") => {
         let endpoint = `/movies/?page=${page}`;
 
-        if(term) {
+        if (term) {
             endpoint += `&term=${term}`;
         }
         const { data } = await this.client.get(endpoint);
@@ -21,6 +21,16 @@ class MovieService extends HttpService {
         const { data } = await this.client.post("/movies", newMovie);
         return data;
     }
+
+    createLike = async (id) => {
+        const { data } = await this.client.put(`/movies/${id}/like`);
+        return data;
+    };
+
+    createDisLike = async (id) => {
+        const { data } = await this.client.put(`/movies/${id}/dislike`);
+        return data;
+    };
 }
 
 

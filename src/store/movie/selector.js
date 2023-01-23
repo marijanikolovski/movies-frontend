@@ -6,9 +6,12 @@ const selectMovie = (state) => state.movies.movie;
 
 const selectSearchTerm = (state) => state.movies.term;
 
+const selectStatus = (state) => state.movies.status;
+
 export { 
     selectMovies,
     selectNewMovie,
     selectMovie,
-    selectSearchTerm
+    selectSearchTerm,
+    selectStatus
 };

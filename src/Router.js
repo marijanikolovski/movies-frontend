@@ -46,7 +46,10 @@ export const Router = () => {
             <PrivateRoute exact path='/movies'>
                 <AppMovies />
             </PrivateRoute>
-            <PrivateRoute  path='/movies/:id'>
+            <PrivateRoute path='/movies/:id/like'>
+                <AppMovies />
+            </PrivateRoute>
+            <PrivateRoute path='/movies/:id'>
                 <SingleMovie />
             </PrivateRoute>
             <PrivateRoute path='/create'>

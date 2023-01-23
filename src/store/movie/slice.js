@@ -4,6 +4,8 @@ const middlewareActions = {
   addMovie: () => { },
   getMovies: () => { },
   getMovie: () => { },
+  likeMovie: () => { },
+  dislikeMovie: () => { }
 };
 
 export const MoviesSlice = createSlice({
@@ -21,6 +23,7 @@ export const MoviesSlice = createSlice({
     },
     movie: {},
     term: null,
+    status: ''
   },
   reducers: {
     setMovies(state, action) {
@@ -29,6 +32,12 @@ export const MoviesSlice = createSlice({
 
     setMovie(state, action) {
       state.movie = action.payload;
+      state.status = action.payload.status;
+    },
+
+    setMovieWithLikeDislike(state, action) {
+      state.movie = action.payload.movie;
+      state.status = action.payload.status;
     },
 
     setMoviesWihtPaginated(state, action) {
@@ -61,7 +70,10 @@ export const {
   setMoviesWihtPaginated,
   setMovie,
   getMovie,
-  setSearchTerm
+  setSearchTerm,
+  likeMovie,
+  dislikeMovie,
+  setMovieWithLikeDislike
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-export const MovieRow = ({ movie }) => {
+export const MovieRow = ({ movie, handleLike }) => {
   return (
     <div>
       <div>
@@ -16,10 +16,15 @@ export const MovieRow = ({ movie }) => {
             {movie.title}
           </Link>
         </h3>
-        <p className="mb-5">
+        <p className="mb-1">
           {movie.description}
         </p>
-
+        <div className="d-lg-flex justify-content-center">
+          <p className="mt-3 ml-3">The number of likes is: {movie.likes}</p>
+        </div>
+        <div className="d-lg-flex justify-content-center mt-4 mb-5">
+          <p className="mt-3 ml-3">The number of dislikes is: {movie.dislikes}</p>
+        </div>
       </div>
     </div>
   )

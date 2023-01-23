@@ -1,13 +1,26 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
-import { selectMovie } from '../store/movie/selector';
-import { getMovie } from '../store/movie/slice';
+import { selectMovie, selectNewMovie, selectStatus } from '../store/movie/selector';
+import { dislikeMovie, getMovie, likeMovie } from '../store/movie/slice';
+import { Button } from "react-bootstrap";
 
 export const SingleMovie = () => {
     const dispatch = useDispatch();
     const movie = useSelector(selectMovie);
     const { id } = useParams();
+    const newMovie = useSelector(selectNewMovie)
+    const status = useSelector(selectStatus);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        dispatch(likeMovie(movie.id));
+    }
+
+    const handleDislike = (e) => {
+        e.preventDefault();
+        dispatch(dislikeMovie(movie.id));
+    }
 
     useEffect(() => {
         dispatch(getMovie(id));
@@ -23,6 +36,17 @@ export const SingleMovie = () => {
             </h1>
             <h4 className="justify-content-center"><strong>Genre: </strong>{movie?.genre?.name}</h4>
             <p className="justify-content-center">{movie.description}</p>
+            <div className="d-lg-flex justify-content-center">
+                <p className="text-danger">{status}</p>
+                <Button onClick={handleLike}>Like</Button>
+                <p className="mt-3 ml-3">The number of likes is: {movie.likes}</p>
+            </div>
+            <div className="d-lg-flex justify-content-center mt-4 mb-5">
+                <Button onClick={handleDislike}>Dislike</Button>
+                <p className="mt-3 ml-3">The number of dislikes is: {movie.dislikes}</p>
+            </div>
+
+
         </div>
     )
 }
