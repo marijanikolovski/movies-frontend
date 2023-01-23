@@ -41,12 +41,11 @@ export const SingleMovie = () => {
                 <Button onClick={handleLike}>Like</Button>
                 <p className="mt-3 ml-3">The number of likes is: {movie.likes}</p>
             </div>
-            <div className="d-lg-flex justify-content-center mt-4 mb-5">
+            <div className="d-lg-flex justify-content-center mt-4">
                 <Button onClick={handleDislike}>Dislike</Button>
                 <p className="mt-3 ml-3">The number of dislikes is: {movie.dislikes}</p>
             </div>
-
-
+            <p className="justify-content-center">The number of visits for this film is: {movie.visits}</p>
         </div>
     )
 }
