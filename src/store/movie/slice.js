@@ -6,7 +6,8 @@ const middlewareActions = {
   getMovie: () => { },
   likeMovie: () => { },
   dislikeMovie: () => { },
-  addComment: () => {},
+  addComment: () => { },
+  getComments: () => { }
 };
 
 export const MoviesSlice = createSlice({
@@ -23,6 +24,11 @@ export const MoviesSlice = createSlice({
       cover_image: "",
     },
     movie: {},
+    comments: {
+      data: [],
+      current_page: 0,
+      last_page: 0,
+    },
     term: null,
     status: ''
   },
@@ -34,6 +40,15 @@ export const MoviesSlice = createSlice({
     setMovie(state, action) {
       state.movie = action.payload;
       state.status = action.payload.status;
+    },
+
+    setComments(state, action) {
+      state.comments = action.payload
+    },
+
+    setCommentsWithPaginated(state, action) {
+      state.comments.data = [...state.comments.data, ...action.payload.data];
+      state.comments.current_page = action.payload.current_page;
     },
 
     setMovieWithLikeDislike(state, action) {
@@ -59,9 +74,9 @@ export const MoviesSlice = createSlice({
     },
 
     setMovieWithNewComment(state, action) {
-      state.movie = {
-        ...state.movie,
-        comments: [...state.movie.comments, action.payload],
+      state.comments = {
+        ...state.comments,
+        data: [...state.comments.data, action.payload],
       };
     },
 
@@ -83,7 +98,10 @@ export const {
   dislikeMovie,
   setMovieWithLikeDislike,
   addComment,
-  setMovieWithNewComment
+  setMovieWithNewComment,
+  getComments,
+  setComments,
+  setCommentsWithPaginated
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

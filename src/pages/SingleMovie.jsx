@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
-import { selectMovie, selectNewMovie, selectStatus } from '../store/movie/selector';
-import { addComment, dislikeMovie, getMovie, likeMovie } from '../store/movie/slice';
+import { selectComments, selectMovie, selectNewMovie, selectStatus } from '../store/movie/selector';
+import { addComment, dislikeMovie, getComments, getMovie, likeMovie } from '../store/movie/slice';
 import { Button } from "react-bootstrap";
 import { CommentComponent } from '../component/CommentComponent';
 
@@ -12,6 +12,7 @@ export const SingleMovie = () => {
     const { id } = useParams();
     const newMovie = useSelector(selectNewMovie)
     const status = useSelector(selectStatus);
+    const comments = useSelector(selectComments)
     const [newComment, setNewComment] = useState({
         content: "",
     });
@@ -32,8 +33,13 @@ export const SingleMovie = () => {
         setNewComment({ content: "" });
     };
 
+    function handlePaginate(page) {
+        dispatch(getComments({ movieId: id, page: page }));
+    }
+
     useEffect(() => {
         dispatch(getMovie(id));
+        dispatch(getComments({ movieId: id, page: 1 }))
     }, [id])
 
     return (
@@ -59,10 +65,11 @@ export const SingleMovie = () => {
             <div>
                 <CommentComponent
                     key={movie.id}
-                    movie={movie}
+                    comments={comments}
                     handleAddNewComment={handleAddNewComment}
                     newComment={newComment}
                     setNewComment={setNewComment}
+                    handlePaginate={handlePaginate}
                 />
             </div>
         </div>

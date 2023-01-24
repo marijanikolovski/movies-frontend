@@ -11,7 +11,10 @@ import {
   dislikeMovie,
   setMovieWithLikeDislike,
   addComment,
-  setMovieWithNewComment
+  setMovieWithNewComment,
+  getComments,
+  setComments,
+  setCommentsWithPaginated
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -21,6 +24,19 @@ function* getMoviesHandler(action) {
       yield put(setMoviesWihtPaginated(movies));
     } else {
       yield put(setMovies(movies));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* getCommentsHandler(action) {
+  try {
+    const comments = yield call(movieService.getComments, action.payload, action.payload.page);
+    if (action.payload?.page > 1) {
+      yield put(setCommentsWithPaginated(comments));
+    } else {
+      yield put(setComments(comments));
     }
   } catch (e) {
     console.log(e);
@@ -81,6 +97,7 @@ export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
   yield takeLatest(getMovie.type, getMovieHandler);
+  yield takeLatest(getComments.type, getCommentsHandler);
   yield takeLatest(likeMovie.type, createLikeHandler);
   yield takeLatest(dislikeMovie.type, createDislikeHandler);
   yield takeLatest(addComment.type, addCommentHendle);
