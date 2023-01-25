@@ -31,6 +31,11 @@ class MovieService extends HttpService {
         const { data } = await this.client.put(`/movies/${id}/dislike`);
         return data;
     };
+
+    addComment = async ({ movieId, comment }) => {
+        const { data } = await this.client.post(`/movies/${movieId}/comments`, comment);
+        return data;
+      };
 }
 
 

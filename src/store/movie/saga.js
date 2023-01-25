@@ -9,7 +9,9 @@ import {
   getMovie,
   likeMovie,
   dislikeMovie,
-  setMovieWithLikeDislike
+  setMovieWithLikeDislike,
+  addComment,
+  setMovieWithNewComment
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -66,11 +68,20 @@ function* createDislikeHandler(action) {
   }
 }
 
+function* addCommentHendle(action) {
+  try {
+    const newComment = yield call(movieService.addComment, action.payload);
+    yield put(setMovieWithNewComment(newComment));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
   yield takeLatest(getMovie.type, getMovieHandler);
   yield takeLatest(likeMovie.type, createLikeHandler);
   yield takeLatest(dislikeMovie.type, createDislikeHandler);
-
+  yield takeLatest(addComment.type, addCommentHendle);
 }

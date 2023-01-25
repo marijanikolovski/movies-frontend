@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { selectMovie, selectNewMovie, selectStatus } from '../store/movie/selector';
-import { dislikeMovie, getMovie, likeMovie } from '../store/movie/slice';
+import { addComment, dislikeMovie, getMovie, likeMovie } from '../store/movie/slice';
 import { Button } from "react-bootstrap";
+import { CommentComponent } from '../component/CommentComponent';
 
 export const SingleMovie = () => {
     const dispatch = useDispatch();
@@ -11,6 +12,9 @@ export const SingleMovie = () => {
     const { id } = useParams();
     const newMovie = useSelector(selectNewMovie)
     const status = useSelector(selectStatus);
+    const [newComment, setNewComment] = useState({
+        content: "",
+    });
 
     const handleLike = (e) => {
         e.preventDefault();
@@ -21,6 +25,12 @@ export const SingleMovie = () => {
         e.preventDefault();
         dispatch(dislikeMovie(movie.id));
     }
+
+    const handleAddNewComment = (e) => {
+        e.preventDefault();
+        dispatch(addComment({ comment: newComment, movieId: id }));
+        setNewComment({ content: "" });
+    };
 
     useEffect(() => {
         dispatch(getMovie(id));
@@ -46,6 +56,15 @@ export const SingleMovie = () => {
                 <p className="mt-3 ml-3">The number of dislikes is: {movie.dislikes}</p>
             </div>
             <p className="justify-content-center">The number of visits for this film is: {movie.visits}</p>
+            <div>
+                <CommentComponent
+                    key={movie.id}
+                    movie={movie}
+                    handleAddNewComment={handleAddNewComment}
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                />
+            </div>
         </div>
     )
 }
