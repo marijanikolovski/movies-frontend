@@ -7,7 +7,11 @@ const middlewareActions = {
   likeMovie: () => { },
   dislikeMovie: () => { },
   addComment: () => { },
-  getComments: () => { }
+  getComments: () => { },
+  createWatchList: () => { },
+  getWatchList: () => { },
+  deleteMovieFromList: () => { },
+  watchedMovie: () => { }
 };
 
 export const MoviesSlice = createSlice({
@@ -30,7 +34,8 @@ export const MoviesSlice = createSlice({
       last_page: 0,
     },
     term: null,
-    status: ''
+    status: '',
+    watchList: [],
   },
   reducers: {
     setMovies(state, action) {
@@ -80,6 +85,18 @@ export const MoviesSlice = createSlice({
       };
     },
 
+    setWatchList(state, action) {
+      state.watchList = action.payload
+    },
+
+    setWatchListWithNewMovie(state, action) {
+      state.watchList = [...state.watchList, action.payload]
+    },
+
+    setWatchListWithoutMovie(state) {
+      state.watchList = state.watchList
+    },
+
     ...middlewareActions,
   },
 });
@@ -101,7 +118,14 @@ export const {
   setMovieWithNewComment,
   getComments,
   setComments,
-  setCommentsWithPaginated
+  setCommentsWithPaginated,
+  createWatchList,
+  setWatchList,
+  getWatchList,
+  setWatchListWithNewMovie,
+  deleteMovieFromList,
+  setWatchListWithoutMovie,
+  watchedMovie
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

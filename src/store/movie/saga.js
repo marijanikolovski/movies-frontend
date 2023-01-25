@@ -14,7 +14,14 @@ import {
   setMovieWithNewComment,
   getComments,
   setComments,
-  setCommentsWithPaginated
+  setCommentsWithPaginated,
+  createWatchList,
+  setWatchList,
+  getWatchList,
+  setWatchListWithNewMovie,
+  deleteMovieFromList,
+  setWatchListWithoutMovie,
+  watchedMovie
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -93,6 +100,42 @@ function* addCommentHendle(action) {
   }
 }
 
+function* getWatchListHandle(action) {
+  try {
+    const watchList = yield call(movieService.getWatchList, action.payload);
+    yield put(setWatchList(watchList));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* createWatchListHandle(action) {
+  try {
+    const watchList = yield call(movieService.createWatchList, action.payload);
+    yield put(setWatchListWithNewMovie(watchList));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* deleteMovieFromListHandle(action) {
+  try {
+    const watchList = yield call(movieService.deleteMovieFromList, action.payload);
+    yield put(setWatchListWithoutMovie(watchList));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* watchedMovieHandle(action) {
+  try {
+    const watchList = yield call(movieService.watchedMovie, action.payload);
+    yield put(setWatchListWithNewMovie(watchList));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
@@ -101,4 +144,9 @@ export function* watchForMoviesSagas() {
   yield takeLatest(likeMovie.type, createLikeHandler);
   yield takeLatest(dislikeMovie.type, createDislikeHandler);
   yield takeLatest(addComment.type, addCommentHendle);
+  yield takeLatest(createWatchList.type, createWatchListHandle);
+  yield takeLatest(getWatchList.type, getWatchListHandle);
+  yield takeLatest(deleteMovieFromList.type, deleteMovieFromListHandle);
+  yield takeLatest(watchedMovie.type, watchedMovieHandle);
+
 }

@@ -41,6 +41,26 @@ class MovieService extends HttpService {
         const { data } = await this.client.post(`/movies/${movieId}/comments`, comment);
         return data;
     };
+
+    createWatchList = async (movieId) => {
+        const { data } = await this.client.post(`movies/${movieId}/watchlist`);
+        return data;
+    }
+
+    getWatchList = async () => {
+        const { data } = await this.client.get('watchlist');
+        return data;
+    }
+
+    deleteMovieFromList = async (movieId) => {
+        const { data } = await this.client.delete(`watchlist/${movieId}`);
+        return data;
+    }
+
+    watchedMovie = async (movieId) => {
+        const { data } = await this.client.put(`watchlist/${movieId}`);
+        return data;
+    }
 }
 
 

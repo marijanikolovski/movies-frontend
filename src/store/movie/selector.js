@@ -10,11 +10,14 @@ const selectStatus = (state) => state.movies.status;
 
 const selectComments = (state) => state.movies.comments;
 
+const selectWatchList = (state) => state.movies.watchList;
+
 export {
     selectMovies,
     selectNewMovie,
     selectMovie,
     selectSearchTerm,
     selectStatus,
-    selectComments
+    selectComments,
+    selectWatchList
 };

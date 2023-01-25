@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-export const MovieRow = ({ movie, handleLike }) => {
+export const MovieRow = ({ movie }) => {
   return (
     <div>
       <div>
@@ -16,6 +16,12 @@ export const MovieRow = ({ movie, handleLike }) => {
             {movie.title}
           </Link>
         </h3>
+        {movie.watch_lists?.map(({ movie_id, watched }) => {
+          if (watched == true) {
+            return <p key={movie.id} className="text-danger">* The movie was watched!</p>
+          }
+        })
+        }
         <p className="mb-1">
           {movie.description}
         </p>
