@@ -22,8 +22,11 @@ export const MovieRow = ({ movie, handleLike }) => {
         <div className="d-lg-flex justify-content-center">
           <p className="mt-3 ml-3">The number of likes is: {movie.likes}</p>
         </div>
-        <div className="d-lg-flex justify-content-center mt-4 mb-5">
+        <div className="d-lg-flex justify-content-center mt-4">
           <p className="mt-3 ml-3">The number of dislikes is: {movie.dislikes}</p>
+        </div>
+        <div className="d-lg-flex justify-content-center mt-4 mb-5">
+          <p className="mt-3 ml-3">The number of visits for this film is: {movie.visits}</p>
         </div>
       </div>
     </div>
