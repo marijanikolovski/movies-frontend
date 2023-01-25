@@ -6,7 +6,10 @@ import {
   setMovies,
   setMoviesWihtPaginated,
   setMovie,
-  getMovie
+  getMovie,
+  likeMovie,
+  dislikeMovie,
+  setMovieWithLikeDislike
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -39,8 +42,35 @@ function* addMovieHandler(action) {
   }
 }
 
+function* createLikeHandler(action) {
+  try {
+    const movie = yield call(
+      movieService.createLike,
+      action.payload
+    );
+    yield put(setMovieWithLikeDislike(movie));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* createDislikeHandler(action) {
+  try {
+    const movie = yield call(
+      movieService.createDisLike,
+      action.payload
+    );
+    yield put(setMovieWithLikeDislike(movie));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
-  yield takeLatest(getMovie.type, getMovieHandler)
+  yield takeLatest(getMovie.type, getMovieHandler);
+  yield takeLatest(likeMovie.type, createLikeHandler);
+  yield takeLatest(dislikeMovie.type, createDislikeHandler);
+
 }
