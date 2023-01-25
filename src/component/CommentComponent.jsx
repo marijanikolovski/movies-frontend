@@ -2,18 +2,19 @@ import React from 'react'
 import { Button } from "react-bootstrap";
 
 export const CommentComponent = ({
-    movie,
+    comments,
     handleAddNewComment,
     newComment,
-    setNewComment
+    setNewComment,
+    handlePaginate
 }) => {
     return (
         <div>
-            {movie && movie.comments && (
+            {comments && comments.data && (
                 <div>
-                    {movie.comments.length ? <h3>Comments</h3> : <h3>No Comments</h3>}
+                    {comments.data.length ? <h3>Comments</h3> : <h3>No Comments</h3>}
                     <ul>
-                        {movie.comments.map((comment) => (
+                        {comments.data.map((comment) => (
                             <li key={comment.id}>
                                 <p>{comment.content}</p>
                             </li>
@@ -21,6 +22,13 @@ export const CommentComponent = ({
                     </ul>
                 </div>
             )}
+            <div>
+                {comments.current_page !== comments.last_page && (
+                    <Button className='mb-3' onClick={() => handlePaginate(comments.current_page + 1)}>
+                        Load More
+                    </Button>
+                )}
+            </div>
             <div>
                 <form onSubmit={handleAddNewComment}>
                     <textarea

@@ -16,6 +16,11 @@ class MovieService extends HttpService {
         return data;
     }
 
+    getComments = async ({ movieId, page = 0 }) => {
+        const { data } = await this.client.get(`/movies/${movieId}/comments/?page=${page}`);
+        return data;
+    };
+
 
     add = async (newMovie) => {
         const { data } = await this.client.post("/movies", newMovie);
@@ -35,7 +40,7 @@ class MovieService extends HttpService {
     addComment = async ({ movieId, comment }) => {
         const { data } = await this.client.post(`/movies/${movieId}/comments`, comment);
         return data;
-      };
+    };
 }
 
 
