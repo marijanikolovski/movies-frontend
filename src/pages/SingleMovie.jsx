@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { selectComments, selectMovie, selectNewMovie, selectStatus } from '../store/movie/selector';
-import { addComment, dislikeMovie, getComments, getMovie, likeMovie } from '../store/movie/slice';
+import { addComment, createWatchList, dislikeMovie, getComments, getMovie, likeMovie } from '../store/movie/slice';
 import { Button } from "react-bootstrap";
 import { CommentComponent } from '../component/CommentComponent';
 
 export const SingleMovie = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const movie = useSelector(selectMovie);
     const { id } = useParams();
     const newMovie = useSelector(selectNewMovie)
@@ -37,6 +38,12 @@ export const SingleMovie = () => {
         dispatch(getComments({ movieId: id, page: page }));
     }
 
+    function handleCreateWatchList(e) {
+        e.preventDefault();
+        dispatch(createWatchList(id));
+        history.push('/watchlist');
+    }
+
     useEffect(() => {
         dispatch(getMovie(id));
         dispatch(getComments({ movieId: id, page: 1 }))
@@ -50,6 +57,12 @@ export const SingleMovie = () => {
             <h1 className="fw-bold mb-3 mt-md-4 mb-2 text-center">
                 {movie.title}
             </h1>
+            {movie.watch_lists?.map(({ movie_id, watched }) => {
+                if(movie_id == id && watched == true) {
+                    return <p key={id} className="text-danger">* The movie was watched!</p>
+                } 
+            }) 
+            }
             <h4 className="justify-content-center"><strong>Genre: </strong>{movie?.genre?.name}</h4>
             <p className="justify-content-center">{movie.description}</p>
             <div className="d-lg-flex justify-content-center">
@@ -60,6 +73,12 @@ export const SingleMovie = () => {
             <div className="d-lg-flex justify-content-center mt-4">
                 <Button onClick={handleDislike}>Dislike</Button>
                 <p className="mt-3 ml-3">The number of dislikes is: {movie.dislikes}</p>
+            </div>
+            <div className="d-lg-flex justify-content-center mt-4 mb-4">
+                {movie.watch_lists?.some(({ movie_id }) => movie_id == id) ?
+                    <p className="text-danger">This movie is in your watch list</p> :
+                    <Button onClick={handleCreateWatchList}>Add the movie to your watch list</Button>
+                }
             </div>
             <p className="justify-content-center">The number of visits for this film is: {movie.visits}</p>
             <div>
