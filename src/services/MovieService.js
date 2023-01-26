@@ -66,6 +66,11 @@ class MovieService extends HttpService {
         const { data } = await this.client.get('/topMovies');
         return data;
     }
+
+    relateMovies = async (movieId) => {
+        const { data } = await this.client.get(`/movies/${movieId}/relateMovies`);
+        return data
+    }
 }
 
 
