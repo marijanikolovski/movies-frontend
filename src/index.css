@@ -11,3 +11,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.root-div {
+  display: flex;
+  justify-content: center;
+}
+
+.main-children {
+  margin: 5rem 0 0 0;
+  display: inline-block;
+  flex-basis:66.66%
+
+}
+
+.movies-container {
+  display: inline-block;
+}
+
+.sidebar {
+  height: 100%;
+  width: 160px; 
+  position: fixed; 
+  z-index: 1;
+  top: 0; 
+  left: 0;
+  overflow-x: hidden; 
+  padding-top: 20px;
+  margin-top: 150px;
+  margin-left: 20px;
+}
+
+.sidebar-item {  
+  padding: 4px 8px 0px 16px;
+  text-decoration: none;
+  color: #818181;
+  list-style: none
+}
+
+.sidebar-item li {
+  list-style: none;
+  font-size: 20px;
+}
+
+.sidebar-item li:hover {
+  color: #4d3f3f;
+}

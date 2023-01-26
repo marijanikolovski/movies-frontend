@@ -21,7 +21,9 @@ import {
   setWatchListWithNewMovie,
   deleteMovieFromList,
   setWatchListWithoutMovie,
-  watchedMovie
+  watchedMovie,
+  getTopMovies,
+  setTopMovies
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -136,6 +138,15 @@ function* watchedMovieHandle(action) {
   }
 }
 
+function* topMoviesHandler() {
+  try {
+    const popularMovies = yield call(movieService.topMovies);
+    yield put(setTopMovies(popularMovies));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
@@ -148,5 +159,5 @@ export function* watchForMoviesSagas() {
   yield takeLatest(getWatchList.type, getWatchListHandle);
   yield takeLatest(deleteMovieFromList.type, deleteMovieFromListHandle);
   yield takeLatest(watchedMovie.type, watchedMovieHandle);
-
+  yield takeLatest(getTopMovies.type, topMoviesHandler);
 }
