@@ -16,6 +16,8 @@ const selectTopMovies = (state) => state.movies.topMovies;
 
 const selectRelateMovies = (state) => state.movies.relateMovies;
 
+const selectOmdvMoves = (state) => state.movies.omdvMoves;
+
 export {
     selectMovies,
     selectNewMovie,
@@ -25,5 +27,6 @@ export {
     selectComments,
     selectWatchList,
     selectTopMovies,
-    selectRelateMovies
+    selectRelateMovies,
+    selectOmdvMoves,
 };

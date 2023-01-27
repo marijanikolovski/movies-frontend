@@ -14,6 +14,7 @@ const middlewareActions = {
   watchedMovie: () => { },
   getTopMovies: () => { },
   getRelateMovies: () => { },
+  getOmdbMovies: () => { }
 };
 
 export const MoviesSlice = createSlice({
@@ -40,6 +41,8 @@ export const MoviesSlice = createSlice({
     watchList: [],
     topMovies: [],
     relateMovies: [],
+    omdvMoves: [],
+    inputTitle: '',
   },
   reducers: {
     setMovies(state, action) {
@@ -109,6 +112,14 @@ export const MoviesSlice = createSlice({
       state.relateMovies = action.payload
     },
 
+    setTatleMovieForInput(state, action) {
+      state.titleMovieForInput = action.payload
+    },
+
+    setOmdbMovies(state, action) {
+      state.omdvMoves = action.payload
+    },
+
     ...middlewareActions,
   },
 });
@@ -141,7 +152,9 @@ export const {
   getTopMovies,
   setTopMovies,
   getRelateMovies,
-  setRelateMovies
+  setRelateMovies,
+  getOmdbMovies,
+  setOmdbMovies,
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;
