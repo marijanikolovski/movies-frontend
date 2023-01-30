@@ -5,6 +5,7 @@ import { selectComments, selectMovie, selectNewMovie, selectStatus } from '../st
 import { addComment, createWatchList, dislikeMovie, getComments, getMovie, likeMovie } from '../store/movie/slice';
 import { Button } from "react-bootstrap";
 import { CommentComponent } from '../component/CommentComponent';
+import { RelateMovies } from './RelateMovies';
 
 export const SingleMovie = () => {
     const dispatch = useDispatch();
@@ -52,16 +53,21 @@ export const SingleMovie = () => {
     return (
         <div>
             <div>
+                <RelateMovies
+                    id={id}
+                />
+            </div>
+            <div>
                 <img src={movie.cover_image} width="600" height="200" alt="Movie cover" />
             </div>
             <h1 className="fw-bold mb-3 mt-md-4 mb-2 text-center">
                 {movie.title}
             </h1>
             {movie.watch_lists?.map(({ movie_id, watched }) => {
-                if(movie_id == id && watched == true) {
+                if (movie_id == id && watched == true) {
                     return <p key={id} className="text-danger">* The movie was watched!</p>
-                } 
-            }) 
+                }
+            })
             }
             <h4 className="justify-content-center"><strong>Genre: </strong>{movie?.genre?.name}</h4>
             <p className="justify-content-center">{movie.description}</p>

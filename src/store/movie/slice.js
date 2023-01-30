@@ -11,7 +11,9 @@ const middlewareActions = {
   createWatchList: () => { },
   getWatchList: () => { },
   deleteMovieFromList: () => { },
-  watchedMovie: () => { }
+  watchedMovie: () => { },
+  getTopMovies: () => { },
+  getRelateMovies: () => { },
 };
 
 export const MoviesSlice = createSlice({
@@ -36,6 +38,8 @@ export const MoviesSlice = createSlice({
     term: null,
     status: '',
     watchList: [],
+    topMovies: [],
+    relateMovies: [],
   },
   reducers: {
     setMovies(state, action) {
@@ -97,6 +101,14 @@ export const MoviesSlice = createSlice({
       state.watchList = state.watchList
     },
 
+    setTopMovies(state, action) {
+      state.topMovies = action.payload
+    },
+
+    setRelateMovies(state, action) {
+      state.relateMovies = action.payload
+    },
+
     ...middlewareActions,
   },
 });
@@ -125,7 +137,11 @@ export const {
   setWatchListWithNewMovie,
   deleteMovieFromList,
   setWatchListWithoutMovie,
-  watchedMovie
+  watchedMovie,
+  getTopMovies,
+  setTopMovies,
+  getRelateMovies,
+  setRelateMovies
 } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;
