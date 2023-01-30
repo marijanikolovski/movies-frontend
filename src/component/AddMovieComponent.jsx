@@ -58,11 +58,7 @@ export const AddMovieComponent = ({
                         className="mb-2"
                         required
                         name="cover_image"
-                        value={omdbMoves?.map((movie) => {
-                            if (inputTitle == movie.Title) {
-                                return movie.Poster
-                            }
-                        })}
+                        value={newMovie.cover_image}
                         placeholder="Image url goes here"
                         onChange={({ target }) =>
                             dispatch(setNewMovie({ ...newMovie, cover_image: target.value }))
