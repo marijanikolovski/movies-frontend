@@ -1,5 +1,6 @@
 import { put, call, takeLatest, take } from "redux-saga/effects";
 import { movieService } from "../../services/MovieService";
+import { omdbMoviesService } from "../../services/OmdbMovieService";
 import {
   addMovie,
   getMovies,
@@ -25,7 +26,9 @@ import {
   getTopMovies,
   setTopMovies,
   getRelateMovies,
-  setRelateMovies
+  setRelateMovies,
+  getOmdbMovies,
+  setOmdbMovies
 } from "./slice";
 
 function* getMoviesHandler(action) {
@@ -158,6 +161,15 @@ function* relateMoviesHandler(action) {
   }
 }
 
+function* getOmdbMoviesHandler(action) {
+  try {
+    const omdbMovies = yield call(omdbMoviesService.getOmdbMovies, action.payload.name);
+      yield put(setOmdbMovies(omdbMovies.Search));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* watchForMoviesSagas() {
   yield takeLatest(getMovies.type, getMoviesHandler);
   yield takeLatest(addMovie.type, addMovieHandler);
@@ -172,4 +184,5 @@ export function* watchForMoviesSagas() {
   yield takeLatest(watchedMovie.type, watchedMovieHandle);
   yield takeLatest(getTopMovies.type, topMoviesHandler);
   yield takeLatest(getRelateMovies.type, relateMoviesHandler);
+  yield takeLatest(getOmdbMovies.type, getOmdbMoviesHandler);
 }

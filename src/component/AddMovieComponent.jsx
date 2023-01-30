@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { setNewMovie } from "../store/movie/slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
+import { selectOmdvMoves } from "../store/movie/selector";
 
 export const AddMovieComponent = ({
     newMovie,
@@ -9,9 +10,25 @@ export const AddMovieComponent = ({
     genres
 }) => {
     const dispatch = useDispatch();
+    const omdbMoves = useSelector(selectOmdvMoves);
+    const [inputTitle, setInputTitle] = useState("");
 
     return (
         <div>
+            {omdbMoves ?
+                <div className="movies">
+                    <h5>Choose a title</h5>
+                    {omdbMoves?.map(movie => (
+                        <div key={movie.imdbID} className="movie">
+                            <div className="movie-title">
+                                <p onClick={(e) => {
+                                    setInputTitle(e.target.innerText);
+                                    dispatch(setNewMovie({ ...newMovie, title: movie.Title, cover_image: movie.Poster }))
+                                }}>{movie.Title}</p>
+                            </div>
+                        </div>))}
+                </div>
+                : null}
             <h2>Create New Movie</h2>
             <form onSubmit={handleOnSubmit}>
                 <div>
